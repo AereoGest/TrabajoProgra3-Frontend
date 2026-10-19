@@ -12,8 +12,13 @@ const htmlFiles = [
 export default defineConfig({
     server: {
         host: '0.0.0.0',
-        allowedHosts: ['aerogest.ddns.net']
-    },
+        allowedHosts: ['aerogest.ddns.net'],
+        proxy: {
+            '/api': {
+                target: 'http://localhost:8080',
+                changeOrigin: true,
+                rewrite: path => path.replace(/^\/api/, '') 
+    }},
     preview: {
         host: '0.0.0.0',
         allowedHosts: ['aerogest.ddns.net']
@@ -23,4 +28,4 @@ export default defineConfig({
             input: htmlFiles
         }
     }
-})
+}})
